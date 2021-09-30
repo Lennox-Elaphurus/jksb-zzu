@@ -1,9 +1,10 @@
 # jksb-zzu
 
-本项目修改自[@Editi0](https://github.com/Editi0)的[jksb_sysu](https://github.com/Editi0/jksb_sysu)项目，该项目最早由 [@tomatoF](https://github.com/tomatoF) 开发。
-本项目适配了 GitHub Actions，可以实现每天定时自动健康申报，并由Github向注册Github账号的邮箱发送Action的执行结果。
+本项目采用了 GitHub Actions，可以实现每天定时自动健康申报，并由Github向注册Github账号的邮箱发送Action的执行结果。
 
 **可正常运行，但可能会受网络状况影响，申报结果仍存在不确定性，请谨慎使用**
+
+本项目修改自[@Editi0](https://github.com/Editi0)的[jksb_sysu](https://github.com/Editi0/jksb_sysu)项目，该项目最早由 [@tomatoF](https://github.com/tomatoF) 开发。
 
 ## 技术方案
 
@@ -26,15 +27,24 @@
 
 ### 3. 定时运行
 
-点击位于Settings同一栏的Actions，选择名字为jksb的工作流，启用。
+点击位于Settings同一栏的Actions，确认启用workflow后，选择名字为jksb的工作流，启用。
 
 默认配置为，每天 22:47 UTC (*我们这里是UTC +8，相当于6：47 a.m.*)运行。
 
-控制Github Action自动运行的文件是/.github/workfolows/jksb.yml，如需修改定时运行时间，则修改该文件的`- cron:  '47 22 * * *'`一行，修改方法可参考[该文档](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#scheduled-events)。
+控制Github Action自动运行的文件是/.github/workflows/jksb.yml，如需修改定时运行时间，则修改该文件的`- cron:  '47 22 * * *'`一行，修改方法可参考[该文档](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#scheduled-events)。
 
-### 4. 手动测试（可选）
+### 4. 修改Github Actions的通知方式
 
-在Actions一栏中选择jksb工作流，点击右下角的Run workflow可手动运行一次，以测试能否正确填报。
+Github默认当Action执行成功时不通知，执行失败时邮件通知。
+
+修改方式如下：
+4.1 点击右上角自己的头像，选择Settings
+4.2 在左侧竖栏中选择Notifications，下拉找到Actions一栏
+4.3 取消勾选Send notifications for workflows only
+
+### 5. 手动测试（可选）
+
+在自己仓库的Actions一栏中选择jksb工作流，点击右下角的Run workflow可手动运行，以测试能否正确填报。
 
 如出错，可在该次运行结果的右侧`...`中选择View workflow file，再点击左侧的build以查看报错信息。
 
