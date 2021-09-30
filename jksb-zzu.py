@@ -1,6 +1,5 @@
 import os, time
 from selenium import webdriver
-from util import get_img, tgbot_send
 from retrying import retry
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
