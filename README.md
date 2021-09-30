@@ -2,7 +2,7 @@
 
 本项目采用了 GitHub Actions，可以实现每天定时自动健康申报，并由Github向注册Github账号的邮箱发送Action的执行结果。
 
-**可正常运行，但可能会受网络状况影响，申报结果仍存在不确定性，请谨慎使用**
+**可正确运行，但由于受网络状况和Github服务器的影响，申报结果仍存在不确定性，请谨慎使用**
 
 本项目修改自[@Editi0](https://github.com/Editi0)的[jksb_sysu](https://github.com/Editi0/jksb_sysu)项目，该项目最早由 [@tomatoF](https://github.com/tomatoF) 开发。
 
