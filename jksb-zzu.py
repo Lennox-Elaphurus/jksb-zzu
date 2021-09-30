@@ -14,7 +14,7 @@ print("初始化selenium driver完成")
 def login():
     print("访问登录页面")
     driver.get("https://jksb.v.zzu.edu.cn/vls6sss/zzujksb.dll/first0")
-    time.sleep(2)
+    time.sleep(10)
 
     print("读取用户名密码")
     uid = os.environ['ID']
@@ -30,7 +30,7 @@ def login():
         driver.find_element_by_xpath('//*[@name="smbtn"]').click()
     except:
         raise Exception('登陆失败')
-    time.sleep(2)
+    time.sleep(10)
 
     sbLink=False
     #找出申报的iframe框架
@@ -46,7 +46,7 @@ def login():
 def jksb(sbLink):
     print('访问健康申报页面')
     driver.get(sbLink)
-    time.sleep(2)
+    time.sleep(10)
 
     try:
         driver.find_element_by_xpath('//*[@name="day6"]')
@@ -59,7 +59,7 @@ def jksb(sbLink):
     print("点击本人填报")
     form = driver.find_element_by_xpath('//form')
     form.submit()
-    time.sleep(2)
+    time.sleep(10)
 
     print("选择’绿码‘")
     Select(driver.find_element_by_xpath("//select[@name='myvs_13']")).select_by_value('g')

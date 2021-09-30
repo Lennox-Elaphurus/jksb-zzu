@@ -1,12 +1,14 @@
 # jksb-zzu
 
-修改自[@Editi0](https://github.com/Editi0)的[jksb_sysu](https://github.com/Editi0/jksb_sysu)项目，该项目最早由 [@tomatoF](https://github.com/tomatoF) 开发。适配了 GitHub Actions，可以实现每天定时运行，并由Github向注册Github账号的邮箱发送Action的执行结果。
+本项目修改自[@Editi0](https://github.com/Editi0)的[jksb_sysu](https://github.com/Editi0/jksb_sysu)项目，该项目最早由 [@tomatoF](https://github.com/tomatoF) 开发。
+本项目适配了 GitHub Actions，可以实现每天定时自动健康申报，并由Github向注册Github账号的邮箱发送Action的执行结果。
 
-**已可以正常运行，仍存在较大不确定性，谨慎使用**
+**已可以正常运行，但申报结果仍存在较大不确定性，请谨慎使用**
 
 ## 技术方案
 
-python+selenium+firefox。
+- python+selenium+firefox
+- 通过Github Action定时执行自动申报代码，无需租用服务器或长时间开启电脑。
 
 ## 项目配置
 
@@ -30,10 +32,14 @@ python+selenium+firefox。
 
 控制Github Action自动运行的文件是/.github/workfolows/jksb.yml，如需修改定时运行时间，则修改该文件的`- cron:  '47 22 * * *'`一行，修改方法可参考[该文档](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#scheduled-events)。
 
-### 4. 手动测试
+### 4. 手动测试（可选）
 
 在Actions一栏中选择jksb工作流，点击右下角的Run workflow可手动运行一次，以测试能否正确填报。
 
+如出错，可在该次运行结果的右侧`...`中选择View workflow file，再点击左侧的build以查看报错信息。
+
 ## 免责声明
 
-使用软件过程中，发生意外造成的损失由使用者承担。如遇身体不适、或居住地址发生变化，请及时更新健康申报信息。
+使用本软件过程中，发生任何意外造成的损失由使用者承担。
+
+如遇身体不适、或居住地址发生变化，请及时更新健康申报信息。
