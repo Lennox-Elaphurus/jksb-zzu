@@ -11,18 +11,18 @@ driver = webdriver.Firefox(executable_path=f'{os.getcwd()}/geckodriver.exe', opt
 print("初始化selenium driver完成")
 
 # 失败后随机 3-5s 后重试，最多 10 次
-#@retry(wait_random_min=1000, wait_random_max=3000, stop_max_attempt_number=10)
+@retry(wait_random_min=1000, wait_random_max=3000, stop_max_attempt_number=10)
 def login():
     print("访问登录页面")
     driver.get("https://jksb.v.zzu.edu.cn/vls6sss/zzujksb.dll/first0")
     time.sleep(2)
 
     print("读取用户名密码")
-    id = os.environ['ID']
+    uid = os.environ['ID']
     password = os.environ['PASSWORD']
 
     print("输入用户名密码")
-    driver.find_element_by_xpath('//*[@name="uid"]').send_keys(id)
+    driver.find_element_by_xpath('//*[@name="uid"]').send_keys(uid)
     driver.find_element_by_xpath('//*[@name="upw"]').send_keys(password)
 
     # 点击登录按钮
@@ -43,7 +43,7 @@ def login():
     return sbLink
 
 # 失败后随机 3-5s 后重试，最多 6 次
-#@retry(wait_random_min=3000, wait_random_max=5000, stop_max_attempt_number=6)
+@retry(wait_random_min=3000, wait_random_max=5000, stop_max_attempt_number=6)
 def jksb(sbLink):
     print('访问健康申报页面')
     driver.get(sbLink)
