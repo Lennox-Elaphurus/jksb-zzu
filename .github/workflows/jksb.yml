@@ -20,7 +20,7 @@ jobs:
 
     - name: jksb
       env:
-        NETID: ${{secrets.ID}}
+        ID: ${{secrets.ID}}
         PASSWORD: ${{secrets.PASSWORD}}
         PYTHONIOENCODING: utf-8
         PYTHONLEGACYWINDOWSSTDIO: utf-8

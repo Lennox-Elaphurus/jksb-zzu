@@ -26,9 +26,13 @@ python+selenium+firefox。
 
 点击位于Settings同一栏的Actions，选择名字为jksb的工作流，启用。
 
-默认配置为每天 22:47 UTC (*我们这里是UTC +8，相当于6：47 a.m.*)运行。
+默认配置为，每天 22:47 UTC (*我们这里是UTC +8，相当于6：47 a.m.*)运行。
 
 控制Github Action自动运行的文件是/.github/workfolows/jksb.yml，如需修改定时运行时间，则修改该文件的`- cron:  '47 22 * * *'`一行，修改方法可参考[该文档](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#scheduled-events)。
+
+### 4. 手动测试
+
+在Actions一栏中选择jksb工作流，点击右下角的Run workflow可手动运行一次，以测试能否正确填报。
 
 ## 免责声明
 
