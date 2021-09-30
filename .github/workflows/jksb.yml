@@ -1,0 +1,27 @@
+name: jksb
+
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '47 22 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Cherkout
+      uses: actions/checkout@v2
+
+    - name: Install firefox and packages
+      run: |
+        pip install -r requirements.txt
+        Set-TimeZone -Name "China Standard Time"
+
+    - name: jksb
+      env:
+        NETID: ${{secrets.ID}}
+        PASSWORD: ${{secrets.PASSWORD}}
+        PYTHONIOENCODING: utf-8
+        PYTHONLEGACYWINDOWSSTDIO: utf-8
+      run: python jksb-zzu.py
