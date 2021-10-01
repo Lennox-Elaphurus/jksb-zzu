@@ -1,17 +1,26 @@
 # jksb-zzu
 
-本项目采用了 GitHub Actions，可以实现每天定时自动健康申报，并由Github向注册Github账号的邮箱发送Action的执行结果。自动申报的内容会沿用表格中上一次提交的内容，并将健康码状态选择为绿码。
+本项目实现了针对郑州大学师生健康上报平台的每日定时自动健康申报，并可通过email自动发送申报结果。本项目通过Github Actions定期执行，无需开启电脑或租用服务器。
 
-**可正确运行，但由于受网络状况和Github服务器的影响，申报结果仍存在不确定性，请谨慎使用**
+**受网络状况和Github服务器的影响，申报结果存在不确定性，请谨慎使用**
 
-本项目修改自[@Editi0](https://github.com/Editi0)的[jksb_sysu](https://github.com/Editi0/jksb_sysu)项目，该项目最早由 [@tomatoF](https://github.com/tomatoF) 开发。
+## 任务流程
+
+1. 登录郑州大学统一身份认证平台账号
+2. 沿用上一次提交的填报内容，并将健康码状态选择为绿码
+3. 提交申报
+
 
 ## 技术方案
 
 - python+selenium+firefox
-- 通过Github Action定时执行自动申报代码，无需租用服务器或长时间开启电脑。
+- 通过Github Action定期执行自动申报代码
 
 ## 项目配置
+
+### 0. 创建一个Github账号
+
+自动申报的结果将通过email发送到注册该账号所用的邮箱。
 
 ### 1. 生成自己的仓库
 
@@ -53,3 +62,7 @@ Github默认当Action执行成功时不通知，执行失败时邮件通知。
 使用本软件直接或间接造成的损失由使用者承担，请谨慎使用。
 
 如遇身体不适，健康码颜色变化或居住地址发生变化等情况，请及时更新健康申报信息。
+
+## 致谢
+
+本项目的框架和流程参考[@Editi0](https://github.com/Editi0)的[jksb_sysu](https://github.com/Editi0/jksb_sysu)项目，该项目最早由 [@tomatoF](https://github.com/tomatoF) 开发。
