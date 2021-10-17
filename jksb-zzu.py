@@ -36,7 +36,7 @@ def login():
     #找出申报的iframe框架
     try:
         sbLink=driver.find_element_by_tag_name("iframe").get_attribute("src")
-        print(sbLink)
+        #print(sbLink)
     except:
         raise Exception('未能找出申报的iframe框架')
     return sbLink
