@@ -78,10 +78,6 @@ def jksb(sbLink):
 if __name__ == "__main__":
     sbLink=login()
     time.sleep(2)
-    try:
-        jksb(sbLink)
-        driver.quit()
-    except:
-        print('健康申报失败')
-        driver.quit()
+    jksb(sbLink)
+    driver.quit()
 
