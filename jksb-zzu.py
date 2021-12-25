@@ -4,14 +4,26 @@ from retrying import retry
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
 
-options = webdriver.FirefoxOptions()
-options.set_preference("security.tls.version.min",1) #https://blog.csdn.net/m0_55391269/article/details/113867365
-driver = webdriver.Firefox(executable_path=f'{os.getcwd()}/geckodriver.exe', options=options)
-print("初始化selenium driver完成")
+# 失败后随机 1-3s 后重试，最多 10 次
+@retry(wait_random_min=1000, wait_random_max=3000, stop_max_attempt_number=10)
+def initDriver():
+    options = webdriver.FirefoxOptions()
+    options.set_preference("security.tls.version.min",1) # https://blog.csdn.net/m0_55391269/article/details/113867365
+    try:
+        driver = webdriver.Firefox(executable_path=f'{os.getcwd()}/geckodriver.exe', firefox_profile=profile, )
+    except:
+        logging.error("webdriver初始化失败")
+        raise Exception('webdriver初始化失败')
+    else:
+        #设置超时时间为30s
+        driver.set_script_timeout(30)
+        logging.info("初始化selenium driver完成")
+
+        return driver
 
 # 失败后随机 3-5s 后重试，最多 10 次
 @retry(wait_random_min=1000, wait_random_max=3000, stop_max_attempt_number=10)
-def login():
+def login(driver):
     print("访问登录页面")
     driver.get("https://jksb.v.zzu.edu.cn/vls6sss/zzujksb.dll/first0")
     time.sleep(10)
@@ -43,7 +55,7 @@ def login():
 
 # 失败后随机 3-5s 后重试，最多 6 次
 @retry(wait_random_min=3000, wait_random_max=5000, stop_max_attempt_number=6)
-def jksb(sbLink):
+def jksb(sbLink,driver):
     print('访问健康申报页面')
     driver.get(sbLink)
     time.sleep(10)
@@ -61,7 +73,7 @@ def jksb(sbLink):
     form.submit()
     time.sleep(10)
 
-    print("选择’绿码‘")
+    print("选择'绿码'")
     Select(driver.find_element_by_xpath("//select[@name='myvs_13']")).select_by_value('g')
     time.sleep(2)
 
@@ -69,15 +81,16 @@ def jksb(sbLink):
     driver.find_element_by_xpath('//form').submit()
     time.sleep(2)
 
-    print("点击’确认‘按钮")
+    print("点击'确认'按钮")
     driver.find_element_by_xpath('//div[text()="确认"]').click()
     time.sleep(1)
 
     print("完成健康申报")
 
 if __name__ == "__main__":
-    sbLink=login()
+    driver=initDriver()
+    sbLink=login(driver)
     time.sleep(2)
-    jksb(sbLink)
+    jksb(sbLink,driver)
     driver.quit()
 
