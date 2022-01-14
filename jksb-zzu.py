@@ -63,7 +63,7 @@ def jksb(sbLink,driver):
     time.sleep(10)
 
     try:
-        driver.find_element_by_xpath('//*[@name="day6"]')
+        driver.find_element_by_xpath('//*[@name="zzj_fun_426"]')
         logging.info('打开健康申报成功')
     except:
         logging.error('打开健康申报失败')
