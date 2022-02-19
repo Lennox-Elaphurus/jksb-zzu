@@ -32,7 +32,7 @@
 
 2.2 点击右上角的New repository secret按钮，在Name一栏填入`ID`(*注意需要大写*),在Value一栏填入你的用户号，点击Add secret保存。
 
-2.3 再次点击右上角的New repository secret按钮，在Name一栏填入``PASSWORD``(*注意需要大写*),在Value一栏填入你的密码，点击Add secret保存。
+2.3 再次点击右上角的New repository secret按钮，在Name一栏填入`PASSWORD`(*注意需要大写*),在Value一栏填入你的密码，点击Add secret保存。
 
 ### 3. 定时运行
 
@@ -56,6 +56,12 @@ Github默认当Action执行成功时不通知，执行失败时邮件通知。
 在自己仓库的Actions一栏中选择jksb工作流，点击右下角的Run workflow可手动运行，以测试能否正确填报。
 
 如出错，可在该次运行结果的右侧`...`中选择View workflow file，再点击左侧的build以查看报错信息。
+
+### 6. 批量申报（可选）
+
+在添加`ID`和`PASSWORD`时，可以空格为分割，按顺序填入多组账号密码（数量不限），程序会自动依次申报。
+
+例如，在需要申报ID为001密码为111，和ID为002密码为222的账号时，`ID`填写为“001 002”，`PASSWORD`填写为“111 222”.
 
 ## 免责声明
 

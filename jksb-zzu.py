@@ -23,14 +23,10 @@ def initDriver():
 
 # 失败后随机 3-5s 后重试，最多 10 次
 @retry(wait_random_min=1000, wait_random_max=3000, stop_max_attempt_number=10)
-def login(driver):
+def login(driver,uid,password):
     logging.info("访问登录页面")
     driver.get("https://jksb.v.zzu.edu.cn/vls6sss/zzujksb.dll/first0")
     time.sleep(10)
-
-    logging.info("读取用户名密码")
-    uid = os.environ['ID']
-    password = os.environ['PASSWORD']
 
     logging.info("输入用户名密码")
     driver.find_element_by_xpath('//*[@name="uid"]').send_keys(uid)
@@ -91,8 +87,14 @@ def jksb(sbLink,driver):
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,format='[%(levelname)s] %(asctime)s %(message)s')
     driver=initDriver()
-    sbLink=login(driver)
-    time.sleep(2)
-    jksb(sbLink,driver)
+
+    logging.info("读取用户名密码")
+    uids = os.environ['ID'].split()
+    passwords = os.environ['PASSWORD'].split()
+
+    for i in range(len(uids)):
+        sbLink=login(driver,uids[i],passwords[i])
+        time.sleep(2)
+        jksb(sbLink,driver)
     driver.quit()
 
