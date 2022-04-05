@@ -40,7 +40,7 @@ def login(driver,uid,password,ocr):
         logging.info("未找到验证码提示,可能不需要输入验证码")
     else:
         img_link=img_element.get_attribute('src')
-        print(img_link)
+        # print(img_link)
 
         # 识别验证码
         code = get_img(img_link,ocr,driver)
@@ -100,7 +100,7 @@ def jksb(sb_link,driver,uid):
         time.sleep(1)
     except Exception as e:
         logging.error("提交健康申报失败")
-        print(e.args)
+        logging.error(e.args)
         raise Exception("提交健康申报失败")
 
     try:
@@ -109,7 +109,7 @@ def jksb(sb_link,driver,uid):
         time.sleep(1)
     except Exception as e:
         logging.error("点击'确认'失败")
-        print(e.args)
+        logging.error(e.args)
         raise Exception("点击'确认'失败")
     else:
         logging.info("完成健康申报")
@@ -132,6 +132,6 @@ if __name__ == "__main__":
         for i in range(len(uids)):
             sb_link=login(driver,uids[i],passwords[i],ocr)
             jksb(sb_link,driver,uids[i])
-            print(i+1,"finished.")
+            logging.info(str(i+1) + " finished.")
     driver.quit()
 

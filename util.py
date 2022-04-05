@@ -32,7 +32,7 @@ def get_img(img_link,ocr,driver):
         img_bytes = f.read()
     try:
         res = ocr.classification(img_bytes)
-        logging.info('验证码识别成功：'+str(res))
+        logging.info('验证码识别成功：' + str(res))
     except:
         logging.error('验证码识别失败')
         raise Exception('验证码识别失败')
