@@ -1,5 +1,7 @@
 import os, time, logging
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
 from retrying import retry
 from util import get_img
 import ddddocr
@@ -66,7 +68,7 @@ def login(driver,uid,password,ocr):
 
 # 失败后随机 3-5s 后重试，最多 6 次
 @retry(wait_random_min=3000, wait_random_max=5000, stop_max_attempt_number=6)
-def jksb(sb_link,driver):
+def jksb(sb_link,driver,uid):
     logging.info('访问健康申报页面')
     driver.get(sb_link)
     # print(sb_link)
@@ -84,22 +86,31 @@ def jksb(sb_link,driver):
     form.submit()
     time.sleep(5)
 
+    if expected_conditions.text_to_be_present_in_element((By.XPATH, "//*[@id='bak_0']/div[5]/span"),"今日您已经填报过了"):
+        logging.info("该uid今日已经填报过了")
+        return
+
     # logging.info("选择'绿码'")
     # Select(driver.find_element_by_xpath("//select[@name='myvs_13']")).select_by_value('g')
     # time.sleep(2)
 
-    logging.info("提交健康申报")
-    driver.find_element_by_xpath('//form').submit()
-    time.sleep(1)
-
-    logging.info("点击'确认'按钮")
     try:
-        driver.find_element_by_xpath('//div[text()="确认"').click()
+        logging.info("提交健康申报")
+        driver.find_element_by_xpath('//form').submit()
+        time.sleep(1)
+    except Exception as e:
+        logging.error("提交健康申报失败")
+        print(e.args)
+        raise Exception("提交健康申报失败")
+
+    try:
+        logging.info("点击'确认'按钮")
+        driver.get("https://jksb.v.zzu.edu.cn/vls6sss/zzujksb.dll/endok?uid="+uid)
         time.sleep(1)
     except Exception as e:
         logging.error("点击'确认'失败")
         print(e.args)
-        # raise Exception("点击'确认'失败")
+        raise Exception("点击'确认'失败")
     else:
         logging.info("完成健康申报")
 
@@ -120,7 +131,7 @@ if __name__ == "__main__":
     else:
         for i in range(len(uids)):
             sb_link=login(driver,uids[i],passwords[i],ocr)
-            jksb(sb_link,driver)
+            jksb(sb_link,driver,uids[i])
             print(i+1,"finished.")
     driver.quit()
 
