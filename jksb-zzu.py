@@ -81,14 +81,15 @@ def jksb(sb_link,driver,uid):
         logging.error('打开健康申报失败')
         raise Exception('打开健康申报失败')
 
+    # report_message = driver.find_element_by_xpath("//*[@id='bak_0']/div[5]/span").text
+    # if report_message == "今日您已经填报过了":
+    #     logging.info("该uid今日已经填报过了")
+    #     return
+
     logging.info("点击本人填报")
     form = driver.find_element_by_xpath('//form')
     form.submit()
     time.sleep(5)
-
-    if expected_conditions.text_to_be_present_in_element((By.XPATH, "//*[@id='bak_0']/div[5]/span"),"今日您已经填报过了"):
-        logging.info("该uid今日已经填报过了")
-        return
 
     # logging.info("选择'绿码'")
     # Select(driver.find_element_by_xpath("//select[@name='myvs_13']")).select_by_value('g')
