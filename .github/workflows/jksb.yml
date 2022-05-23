@@ -3,7 +3,7 @@ name: jksb
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '47 22 * * *'
+    - cron:  '47 19 * * *'
   workflow_dispatch:
 
 jobs:
